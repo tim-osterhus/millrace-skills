@@ -16,6 +16,7 @@ Usage contract:
 | --- | --- | --- | --- | --- |
 | `anti-llm-frontend-design` | Guardrail for frontend agents to avoid generic LLM-generated UI by starting from product-specific structure, density, states, and workflows. | `frontend`, `design` | `skills/anti-llm-frontend-design/SKILL.md` | available |
 | `ai-app-integration` | Guardrail for choosing and separating AI SDK and ChatGPT Apps SDK integration seams. | `ai-sdk`, `chatgpt-apps`, `mcp`, `planning` | `skills/ai-app-integration/SKILL.md` | available |
+| `aspnet-core-web-development` | Guardrail for choosing ASP.NET Core app models and composing host, middleware, DI, auth, testing, and deployment boundaries with current official docs. | `aspnet-core`, `web`, `planning`, `auth`, `testing` | `skills/aspnet-core-web-development/SKILL.md` | available |
 | `browser-game-foundations` | Guardrail for choosing the browser-game fantasy, stack, boundaries, inputs, assets, and handoff before implementation. | `browser-games`, `game-foundations`, `planning` | `skills/browser-game-foundations/SKILL.md` | available |
 | `browser-local-qa` | Guardrail for choosing the smallest reliable local browser verification surface and evidence type. | `browser`, `qa`, `local`, `playwright` | `skills/browser-local-qa/SKILL.md` | available |
 | `frontend-product-builder` | Guardrail for building frontend product surfaces from real workflows, state, and browser-verified interaction instead of generic landing-page scaffolds. | `frontend`, `product-surface`, `planning` | `skills/frontend-product-builder/SKILL.md` | available |
