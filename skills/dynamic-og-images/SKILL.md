@@ -2,7 +2,7 @@
 asset_type: skill
 asset_id: dynamic-og-images
 version: 1
-description: Guardrail for choosing Next.js metadata routes, route handlers with ImageResponse, standalone Satori, or hybrid render trees for dynamic OG and social preview images, with explicit font, asset, CSS, and preview boundaries.
+description: Planning guardrail for Next.js App Router social preview images: route choice, runtime, fonts, assets, CSS subset, and proof.
 advisory_only: true
 capability_type: planning-guardrail
 recommended_for_stages:
@@ -21,6 +21,7 @@ forbidden_claims:
 priority: 4
 docs:
   - https://nextjs.org/docs/app/api-reference/file-conventions/metadata/opengraph-image
+  - https://nextjs.org/docs/15/app/api-reference/functions/image-response
   - https://github.com/vercel/satori
 pathPatterns:
   - app/**/og/**
@@ -39,104 +40,80 @@ importPatterns:
   - next/og
   - ImageResponse
   - satori
-  - satori/standalone
   - @vercel/og
-bashPatterns:
-  - '\bnpm\s+(install|i|add)\s+[^\n]*\bsatori\b'
-  - '\bpnpm\s+(install|i|add)\s+[^\n]*\bsatori\b'
-  - '\bbun\s+(install|i|add)\s+[^\n]*\bsatori\b'
-  - '\byarn\s+add\s+[^\n]*\bsatori\b'
-  - '\bnpm\s+(install|i|add)\s+[^\n]*@vercel/og\b'
-  - '\bpnpm\s+(install|i|add)\s+[^\n]*@vercel/og\b'
-  - '\bbun\s+(install|i|add)\s+[^\n]*@vercel/og\b'
-  - '\byarn\s+add\s+[^\n]*@vercel/og\b'
 ---
 
 # Dynamic OG Images
 
 ## Purpose
 
-Help agents choose and review the smallest honest render surface for dynamic social preview images. This is a guardrail, not an OG-image cookbook or a generic design manual.
+Help agents pick the smallest honest render seam for dynamic social preview images. This is a guardrail, not an OG-image cookbook or a generic design manual.
 
 ### Use When
 
-- the repo has `app/**/opengraph-image.*`, `app/**/twitter-image.*`, or another OG-image surface
-- the user wants a dynamic share card, social preview image, or metadata image route
-- the task involves fonts, image dimensions, preview validation, or edge-runtime constraints
-- the answer depends on current Next.js or Satori docs
+- the repo has `opengraph-image`, `twitter-image`, or a dedicated OG route
+- the task is about a share card, metadata image, font loading, asset loading, or preview proof
+- the answer depends on current Next.js or Satori behavior
 
 ### Do Not Use When
 
-- the task is only generic frontend design
-- the surface is pure raster art or photo editing
+- the task is only generic frontend design or raster art
 - browser QA is the only problem
 - another more specific skill already owns the seam
 
 ## Quick Start
 
-1. Classify the request first as `Next.js metadata route`, `standalone Satori`, or `hybrid`.
-2. Name the render boundary next: route file, runtime, font source, asset source, CSS subset, and preview step.
-3. Read the current official Next.js and Satori docs before writing code whenever either API is involved.
-4. Prefer `next/og` / `ImageResponse`, `runtime = 'edge'`, explicit font loading, and `1200x630` unless the task explicitly says otherwise.
-5. Keep the tree flex-first and inline-styled, then verify a local render or screenshot.
-6. If the answer is planning-level, keep the surface choice explicit in one line:
-   - `Next.js metadata route`: use `opengraph-image` or `twitter-image` when the segment should own the image and automatic `<head>` tags matter.
-   - `route handler with ImageResponse`: use a dedicated route when you need a custom URL shape, query params, or a shared endpoint that is not tied to the convention file.
-   - `standalone Satori`: use `satori` or `satori/standalone` when you need SVG-only output, a framework-agnostic helper, or a render check outside Next.
-   - `hybrid`: use one shared pure render tree when a Next route and a standalone helper must stay in sync. Keep the wrapper thin.
+1. Default to `app/blog/[slug]/opengraph-image.tsx` plus `ImageResponse` for a Next.js App Router blog. Use a route handler only when you need a custom URL, custom headers, or a shared endpoint. Use standalone Satori only outside Next.js or when SVG-first output is the point.
+2. If the image is segment-based, say `params` is a Promise and must be awaited before reading slug data.
+3. State the runtime, font source, asset source, CSS subset, and preview proof in the answer.
+4. Keep the card poster-like: one hierarchy, one accent, no webpage layout.
 
 ## Operating Constraints
 
-- Do not make the image look like a full webpage; OG images are poster frames, not browsers.
-- Do not rely on default fonts.
-- Do not use external CSS, `<style>`, `<link>`, or `<script>` inside the render tree.
-- Do not depend on browser-only layout tricks such as sticky or fixed positioning, pseudo-elements, or media-query branching.
-- Do not assume relative image paths will work.
-- Do not treat CSS variables as a reason to move styling out of the tree; current Satori supports them, but keep style logic explicit and local.
-- Prefer nested flex containers over grid-like page layouts; Satori is flexbox-first, and the render should stay easy to audit.
-- If the task needs local file assets in Next.js, treat Node.js runtime as the exception and keep the asset source explicit.
-- If you choose a segment metadata route, remember `params` is async in current Next.js docs and should be awaited before use.
-- Do not turn this into a generic frontend or image-design course.
+- Default to `runtime = 'edge'`; switch to Node.js only when local files must be read.
+- Load fonts explicitly. Do not rely on system fonts or `next/font` to populate the image route.
+- Use `ttf`, `otf`, or `woff`; prefer `ttf` or `otf`. Do not use `woff2`.
+- Make every non-text asset source explicit: absolute URL, bundled bytes, or data URL. Do not use relative paths.
+- Stay inside the documented render subset: inline flex layout, absolute positioning, borders, radii, backgrounds, text wrapping, and simple transforms. Avoid grid, external CSS, `<style>`, `<link>`, pseudo-elements, sticky/fixed positioning, or browser-only tricks.
+- If local assets are needed in Next.js, say that Node.js runtime is the exception and the asset should be read relative to the project root.
+- Keep CSS variables secondary: Satori supports them, but the layout should still be explicit and local.
 
 ## Inputs This Skill Expects
 
-- The repo surface or diff.
-- The target route, runtime, font source, asset source, and preview step.
-- The visual goal, dimensions, and any brand or content constraints.
-- Current official docs when Next.js metadata or Satori behavior could affect the seam.
+- The route surface or diff.
+- The target route or helper.
+- Runtime, font source, asset source, and preview step.
+- Visual goal, dimensions, and any brand or content constraints.
 
 ## Output Contract
 
 - Start with the classification.
-- Then name the route file or standalone helper, runtime, font source, asset source, CSS subset, and preview step.
+- Then name the route/helper, runtime, font source, asset source, CSS subset, and preview step.
 - Call out any missing font, asset, runtime, or verification boundary.
-- Name at least one trope you rejected and the narrower alternative.
+- Include one rejected trope and the narrower alternative.
 - End with the next verifier and the evidence it should capture.
 
 ## Procedure
 
 1. Identify the smallest honest seam.
 2. Choose the surface that matches the repo and the output type.
-3. Check current official docs before making API-specific claims.
+3. Check current official Next.js and Satori docs before making API-specific claims.
 4. Specify explicit font and asset loading.
 5. Keep the render tree compact, flex-first, and auditable.
 6. Verify by rendering the image locally or capturing a screenshot of the generated output.
-7. If the output still looks generic, simplify the card before adding more decoration.
 
 ## Pitfalls And Gotchas
 
 - Rejected trope: copy a full marketing page into the OG route.
-- Better alternative: render one compact poster with one hierarchy, one accent, and one clearly loaded font.
-- Rejected trope: use external CSS or browser layout assumptions to save time.
-- Better alternative: inline the minimum styles and stay inside the documented render subset.
-- Rejected trope: embed images or logos without making the source explicit.
-- Better alternative: use absolute URLs or bundled data/ArrayBuffer sources and prove the preview render.
-- Rejected trope: hard-ban CSS variables even when the current docs support them.
-- Better alternative: keep variables secondary to explicit inline values and only use them when they reduce duplication materially.
+- Better alternative: render one compact poster with one hierarchy and one clearly loaded font.
+- Rejected trope: hide assets behind relative paths or implicit defaults.
+- Better alternative: use absolute URLs or bundled bytes and prove the preview render.
+- Rejected trope: turn this into a generic frontend course.
+- Better alternative: stay on the route boundary and keep the answer planning-level.
 
 ## Progressive Disclosure
 
-Start with the smallest useful read of the request, then widen only enough to name the seam, the asset path, and the proof surface. Keep the skill compact so it steers route choice and verification instead of becoming a generic rendering manual.
+Start with the smallest useful read of the request, then widen only enough to name the seam and proof surface. Keep the skill compact so it steers route choice and verification instead of becoming a cookbook.
 
 ## Verification Pattern
 
