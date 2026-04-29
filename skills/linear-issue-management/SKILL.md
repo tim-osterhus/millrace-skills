@@ -41,6 +41,7 @@ Do not use when the work is generic planning with no Linear surface, when the pr
 - Do not guess identifiers, team keys, project names, or cycle names.
 - Prefer reading the current issue, project, label set, or cycle list before proposing a change.
 - Keep related writes together so the user can approve one coherent mutation set.
+- For issue-ready discussion-to-issues output, extract the full draft issue list before collapsing leftovers into notes; preserve each material open question as its own follow-up item or draft issue when it could change implementation scope or rollout behavior, even if it belongs to a related issue.
 - Require explicit confirmation before any create, update, assign, status, comment, label, or cycle mutation.
 - Do not turn a triage answer into an action plan unless the mutation gate is satisfied.
 - If the prompt names Linear work but does not include the actual issue list, discussion text, or exported slice, do not search the workspace or emit a terminal block; return a concise no-data summary and ask for the missing slice.
@@ -64,6 +65,8 @@ When answering, prefer a compact structure like:
 - `Pending confirmation`
 - `Next action`
 
+When the prompt asks for issue-ready output, give every material open question its own draft issue or explicit follow-up item if it could change implementation scope or rollout behavior, even when it is tied to a nearby issue, and do not collapse it into another item's note.
+
 Summaries should include, when available:
 - issue or project IDs
 - urgency or priority
@@ -76,7 +79,7 @@ When proposing a mutation, say exactly what would change and what still needs ap
 ## Procedure
 1. Clarify goal and scope before naming actions.
 2. Identify the exact Linear entities and read them first.
-3. For discussion-to-issues work, restate scope, extract dependency and blocker facts, and keep any candidate create or update batched and confirmation-gated.
+3. For discussion-to-issues work, restate scope, extract dependency and blocker facts, create a separate follow-up item for each material open question that could change implementation scope or rollout behavior, keep the issue-ready list complete before folding any leftover open questions into notes, and keep any candidate create or update batched and confirmation-gated.
 4. For triage work, read the relevant Linear slice, rank by urgency or impact from evidence only, and refuse to invent missing status, priority, ownership, or cycle values.
 5. For update work, read the current object, group related field changes together, repeat back the exact fields that would change, and stop at the remaining approval gate.
 6. Summarize with traceable next actions and note whether anything is still pending confirmation.
