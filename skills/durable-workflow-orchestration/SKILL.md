@@ -29,7 +29,7 @@ Help agents design or review durable workflows by forcing the durable boundary, 
 - the task is about a long-running job, multi-step pipeline, agent loop, or background workflow
 - the workflow must pause, resume, retry, wait for approval, or survive a crash, reconnect, or callback
 - the answer depends on where side effects become irreversible or where state must persist between steps
-- the prompt is a review and needs to find duplicate side effects, missing checkpoints, or unsafe retry boundaries
+- the prompt is a review and needs to find duplicate side effects, missing checkpoints, unsafe retry boundaries, or state/resume contract bugs
 
 ### Do Not Use When
 - the work is a short stateless helper or one-off script
@@ -67,7 +67,7 @@ Answer from the task prompt and any provided workflow evidence first; only inspe
 - state who owns persistence and what is stored
 - list the step boundaries and the irreversible edges
 - specify retry policy, idempotency strategy, checkpoint plan, and recovery/resume path
-- call out missing checkpoints, duplicate side effects, or unsafe retry boundaries when reviewing
+- call out missing checkpoints, duplicate side effects, unsafe retry boundaries, and state/resume contract bugs when reviewing
 - end with one concrete verification step and the evidence it should capture
 
 ## Procedure
