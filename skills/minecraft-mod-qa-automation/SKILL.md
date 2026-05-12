@@ -52,7 +52,7 @@ client bridge assertions second, and black-box desktop or image automation last.
 - Classify failures as setup, launch/runtime, deterministic gameplay, visual,
   timing/flaky, unsupported test design, or unknown.
 
-## Recommended Architecture
+### Recommended Architecture
 For WSL plus Windows setups, keep orchestration and repository work on the WSL
 side, and keep the actual Minecraft client, native desktop automation, and
 client-side helpers on the Windows side.
@@ -67,7 +67,7 @@ Do not force visual validation through headless Linux when the real target is a
 Windows client workflow. Use headless launchers for smoke coverage where they
 fit, not as proof that the real rendered client works.
 
-## Layer Selection
+### Layer Selection
 - Unit tests: logic, math, serialization, recipe eligibility, inventory
   transforms, and utility behavior.
 - Fabric GameTests or loader-native tests: world interaction, block placement,
@@ -86,7 +86,7 @@ fit, not as proof that the real rendered client works.
   dialogs, HUD alignment, menus, and other behavior the game does not expose
   through a better hook.
 
-## Test Classes
+### Test Classes
 - Startup smoke: clean launch, mod load, no fatal exceptions, environment ready.
 - Registration smoke: blocks, items, entities, screens, recipes, and commands
   exist and are usable.
@@ -101,7 +101,7 @@ fit, not as proof that the real rendered client works.
 - Compatibility tests: only the loader, Minecraft, Java, and dependency
   combinations the mod actually supports.
 
-## Artifact Contract
+### Artifact Contract
 Every automated QA run should emit a structured artifact bundle.
 
 Minimum contents:

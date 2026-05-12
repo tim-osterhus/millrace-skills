@@ -105,6 +105,9 @@ Help agents review and improve product UI surfaces by finding meaningful result 
 - Rejected trope: use many font sizes for every level of importance.
   Better alternative: use two or three type sizes, then adjust weight, color, and spacing.
 
+## Progressive Disclosure
+Start with the smallest useful polish review: receipt-or-gift decision, typography, spacing, and risk check. Widen into motion, sound, haptics, sharing, or identity only when the product moment is safe and important enough to justify ceremony. Keep transcripts, examples, and broad product psychology out of context unless the current task needs them.
+
 ## Verification Pattern
 - Confirm the surface type and user job were named.
 - Confirm at least one receipt moment was classified as plain receipt or gift moment.

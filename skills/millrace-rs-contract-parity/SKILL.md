@@ -90,6 +90,9 @@ Help agents build Rust slices for Millrace without erasing the runtime contract 
 - Rejected trope: calling a Rust slice equivalent because unit tests pass.
 - Better alternative: compare against golden Millrace artifacts and CLI behavior that represent the Python contract.
 
+## Progressive Disclosure
+Start from the smallest contract boundary that the Rust slice claims to preserve, then widen only when that boundary is proven against Python-owned artifacts. Keep state, runner, and daemon guidance scoped to the current slice instead of loading broad migration advice. Use fixtures and source references on demand rather than turning the skill into a Rust or Millrace tutorial.
+
 ## Verification Pattern
 - Confirm the Rust code names the Python contract or artifact it mirrors.
 - Confirm persisted schemas use stable field names and `serde` models rather than string-spliced JSON.
