@@ -5,7 +5,8 @@ outside the Millrace runtime package so they can be developed, reviewed, and
 installed independently.
 
 - `index.md` lists the optional skills that are available from this repository.
-- `skills/` contains accepted public skill packages.
+- `skills/` contains accepted public skill packages, including optional
+  language, framework, artifact, and workflow guardrails.
 
 The Millrace runtime ships its own core skills separately. Use this repository
 for optional add-ons that are ready to share publicly. Authoring references and
